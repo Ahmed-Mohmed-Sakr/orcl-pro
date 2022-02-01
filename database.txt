@@ -1,0 +1,61 @@
+CREATE TABLE landlord (
+    landlord_id int NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    tel_number int NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    PRIMARY KEY(landlord_id)
+);  
+
+CREATE TABLE address(
+    address_id int NOT NULL,
+    city varchar(45) NOT NULL,
+    street varchar(255) NOT NULL,
+    house int NOT NULL,
+    flat int NOT NULL,
+    PRIMARY KEY (address_id)
+);
+
+
+CREATE TABLE tenant(
+    tenant_id int NOT NULL,
+    full_name varchar(255) NOT NULL,
+    tel_number int NOT NULL,
+    email varchar(255) NOT NULL,
+    PRIMARY KEY (tenant_id)
+);
+
+
+CREATE TABLE apartment(
+    apartment_id int NOT NULL,
+    address varchar(255) NOT NULL,
+    rooms int,
+    description VARCHAR(2000),
+    price int NOT NULL,
+    free char(1) NOT NULL,
+    landlord_id int NOT NULL,
+    address_address_id int NOT NULL,
+    landlord_landlord_id int NOT NULL,
+    PRIMARY KEY(apartment_id,landlord_id),
+    FOREIGN KEY (landlord_landlord_id)
+        REFERENCES landlord(landlord_id)
+        ON DELETE CASCADE,
+     FOREIGN KEY (address_address_id)
+        REFERENCES address(address_id)
+        ON DELETE CASCADE);
+
+
+
+CREATE TABLE booking(
+    booking_id int NOT NULL,
+    in_date Date,
+    out_date Date,
+    appartment_apartment_id int NOT NULL,
+    appartment_landlord_id int NOT NULL,
+    tenant_tenant_id int NOT NULL,
+    PRIMARY KEY (booking_id),
+    FOREIGN KEY (tenant_tenant_id)
+        REFERENCES tenant(tenant_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (appartment_apartment_id,appartment_landlord_id)
+        REFERENCES apartment(apartment_id,landlord_id)
+        ON DELETE CASCADE);
